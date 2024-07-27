@@ -1,5 +1,5 @@
 package com.ironhack.workouttracker.enums;
 
 public enum WorkoutType {
-    PUSH, PULL, LEG
+    PUSH, PULL, LEG, CARDIO
 }

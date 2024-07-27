@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "workouts")
 public class Workout {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -25,8 +25,12 @@ public class Workout {
     private float duration;
     @OneToMany
     private List<Exercise> exercises;
-    @OneToMany(mappedBy = "workout")
-    private List<CalorieTracker> calorieTrackers;
-    @OneToMany(mappedBy = "workout")
-    private List<HeartRateMonitor> heartRateMonitors;
+
+    public Workout(User user, WorkoutType workoutType, LocalDate workoutDate, float duration, List<Exercise> exercises) {
+        this.user = user;
+        this.workoutType = workoutType;
+        this.workoutDate = workoutDate;
+        this.duration = duration;
+        this.exercises = exercises;
+    }
 }

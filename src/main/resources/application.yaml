@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/my_workout_tracker_db
+    url: jdbc:mysql://localhost:3306/my_workout_tracker_db?serverTimezone=UTC
     username: root
     password: Kecske69!
 
