@@ -1,0 +1,41 @@
+#My Workout Tracker Project attempt.
+## UseCase Diagram
+
+## Class Diagram
+
+##Description
+#This Projects sets out to make it easier to track a workout, logging exercises and personal bests.
+It is designed with resistance training in mind.
+It is developed with Spring boot framework , MySQL for database.
+REST api is used with CRUD operations .
+A Controller is created for each class what uses the services to
+
+## Technologies Used
+
+- **Java 22**: The programming language used for development.
+- **Spring Boot 3.3.1**: Framework used to build the RESTful API.
+- **Maven**: Dependency management and build tool.
+- **H2 Database**: In-memory database used for development and testing.
+- **JPA/Hibernate**: ORM framework for database interactions.
+- **Spring Security**: For securing the API endpoints.
+- **Jackson**: For JSON serialization and deserialization.
+- **SLF4J + Logback**: Logging framework.
+- **JUnit 5**: Testing framework.
+- **Postman**: API testing tool.
+
+
+## Task Manager
+# https://trello.com/b/FBSKckfb/ironhack-final-project
+
+##Presentation
+# https://prezi.com/p/edit/lld56_vpewxe/
+
+##Future work
+# Connect other applications like a heart rate monitor app.
+# Make suggestions based on previous workouts.
+# Build an UI for it.
+
+##Resources
+#IronHack Portal
+#Google
+#AI Chatbot
