@@ -15,15 +15,16 @@ public class PersonalBest {
     private float bestWeight;
     private String exerciseName;
     @ManyToOne
-    @JoinColumn(name = "exercise_id",nullable = false)
+    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public PersonalBest(int bestReps, float bestWeight, Exercise exercise) {
+    public PersonalBest(int bestReps, float bestWeight, String exerciseName, Exercise exercise) {
         this.bestReps = bestReps;
         this.bestWeight = bestWeight;
+        this.exerciseName = exerciseName;
         this.exercise = exercise;
     }
 }

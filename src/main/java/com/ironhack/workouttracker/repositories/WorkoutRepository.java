@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,9 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     Optional<Workout> findWorkoutByUserId(@Param("userId") Long userId);
     @Query("SELECT w FROM Workout w JOIN w.user u WHERE u.username = :userName")
     List<Workout> findWorkoutByUserName(@Param("userName") String userName);
+
+    @Query("SELECT w FROM Workout w WHERE w.workoutDate = :workoutDate AND w.user.id = :userId")
+    List<Workout> findWorkoutsByDateAndUserId(@Param("workoutDate") LocalDate workoutDate, @Param("userId") Long userId);
 
 
 }

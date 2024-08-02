@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/workouts")
@@ -52,6 +55,15 @@ public class WorkoutController {
             log.info("Error while deleting workout {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/by-date-and-user")
+    public ResponseEntity<List<Workout>> getWorkoutsByDateAndUserId(@RequestParam("date") String date, @RequestParam("userId") Long userId) {
+        LocalDate workoutDate = LocalDate.parse(date);
+        List<Workout> workouts = workoutService.getWorkoutsByDateAndUserId(workoutDate, userId);
+        if (workouts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(workouts, HttpStatus.OK);
     }
 
 

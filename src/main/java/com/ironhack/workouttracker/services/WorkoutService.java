@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +43,12 @@ public class WorkoutService {
         Workout workout = workoutRepository.findWorkoutByUserId(id).orElseThrow(() -> new EntityNotFoundException("Workout with ID " + id + " does not exist."));
         workoutRepository.delete(workout);
     }
+    @Transactional
+    public List<Workout> getWorkoutsByDateAndUserId(LocalDate workoutDate, Long userId) {
+        log.info("getWorkoutsByDateAndUserId {}", workoutDate);
+        return workoutRepository.findWorkoutsByDateAndUserId(workoutDate, userId);
+    }
+
 
 
 }

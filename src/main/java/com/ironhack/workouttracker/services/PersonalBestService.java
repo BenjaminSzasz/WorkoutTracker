@@ -10,6 +10,7 @@ import com.ironhack.workouttracker.repositories.ExerciseRepository;
 import com.ironhack.workouttracker.repositories.PersonalBestRepository;
 import com.ironhack.workouttracker.repositories.UserRepository;
 import com.ironhack.workouttracker.repositories.WorkoutRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,8 @@ public class PersonalBestService {
         }
         return null;
     }
-     void updatePersonalBest(Long userId, Exercise exercise) {
+    @Transactional
+     public void updatePersonalBest(Long userId, Exercise exercise) {
         String exerciseName = exercise.getName();
         Optional<PersonalBest> personalBestOpt = personalBestRepository.findByUserIdAndExerciseName(userId, exerciseName);
 
