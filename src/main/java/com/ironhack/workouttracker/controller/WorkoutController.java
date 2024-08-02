@@ -1,25 +1,58 @@
 package com.ironhack.workouttracker.controller;
 
+import com.ironhack.workouttracker.enums.WorkoutType;
 import com.ironhack.workouttracker.model.Workout;
 import com.ironhack.workouttracker.services.WorkoutService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/workouts")
 public class WorkoutController {
+    private static final Logger log = LoggerFactory.getLogger(WorkoutController.class);
     private final WorkoutService workoutService;
-    @GetMapping("/user/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void getAllWorkoutsByUserId(@PathVariable("id") Long userId) {
-        workoutService.getAllWorkoutsByUserId(userId);
-    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createWorkout(@RequestBody Workout workout) {
-        workoutService.createWorkout(workout);
+    public ResponseEntity<?> createWorkout(@RequestBody Workout workout) {
+        try {
+            workoutService.createWorkout(workout);
+            log.info("Created workout: {}", workout);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception e) {
+            log.error("Workout not created: {}",e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
     }
+    @GetMapping("/user/{userId}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public ResponseEntity<?> getWorkoutByUserId(@PathVariable("userId") Long userId) {
+        try {
+            workoutService.getWorkoutByUserID(userId);
+            return new ResponseEntity<>("Workout fetched successfully", HttpStatus.FOUND);
+        } catch (Exception e) {
+            log.info("Error while fetching workout {}", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<?> deleteWorkoutByUserId(@PathVariable("userId") Long userId) {
+        try {
+            workoutService.deleteWorkout(userId);
+            return new ResponseEntity<>("Workout deleted successfully", HttpStatus.OK);
+        }catch (Exception e) {
+            log.info("Error while deleting workout {}", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

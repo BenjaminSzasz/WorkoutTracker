@@ -1,6 +1,7 @@
 package com.ironhack.workouttracker.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "exercises")
 public class Exercise {
     @Id
@@ -34,4 +36,5 @@ public class Exercise {
         this.repetitions = repetitions;
         this.weight = weight;
     }
+
 }

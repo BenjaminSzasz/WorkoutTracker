@@ -4,11 +4,13 @@ spring:
     username: root
     password: Kecske69!
 
+
   jpa:
     hibernate:
       ddl-auto: create-drop
-
     show-sql: true
+
+
 
 server:
   error:

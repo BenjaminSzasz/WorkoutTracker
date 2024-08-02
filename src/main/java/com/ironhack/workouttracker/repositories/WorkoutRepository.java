@@ -8,16 +8,14 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
+
     @Query("SELECT w FROM Workout w WHERE w.user.id = :userId")
-    List<Workout> findAllWorkoutsByUserId(@Param("userId") Long userId);
-    @Query("SELECT w FROM Workout w JOIN w.user u WHERE u.id = :userId AND w.workoutType = :workoutType")
-    List<Workout> findByUserWorkoutType(@Param("userId") Long userId, @Param("workoutType") WorkoutType workoutType);
-    @Query("SELECT w FROM Workout w JOIN w.user u WHERE u.username = :userName AND w.workoutType = :workoutType")
-    List<Workout> findByUserNameAndAndWorkoutType(@Param("userName") String userName , @Param("workoutType") WorkoutType workoutType);
-    @Query("SELECT w FROM Workout w JOIN w.user u where u.username = :userName AND w.workoutDate = :workoutDate")
-    List<Workout> findByUserNameAndByWorkoutDate(@Param("userName") String userName, @Param("workoutDate") Date workoutDate);
+    Optional<Workout> findWorkoutByUserId(@Param("userId") Long userId);
+    @Query("SELECT w FROM Workout w JOIN w.user u WHERE u.username = :userName")
+    List<Workout> findWorkoutByUserName(@Param("userName") String userName);
 
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/workouts/exercises")
+@RequestMapping("api/exercises")
 public class ExerciseController {
     private final ExerciseService exerciseService;
     private final WorkoutService workoutService;
