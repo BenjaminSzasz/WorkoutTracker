@@ -21,6 +21,26 @@ public class WorkoutController {
     private static final Logger log = LoggerFactory.getLogger(WorkoutController.class);
     private final WorkoutService workoutService;
 
+    @GetMapping("/user/{userId}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public ResponseEntity<?> getWorkoutByUserId(@PathVariable("userId") Long userId) {
+        try {
+            workoutService.getWorkoutByUserID(userId);
+            return new ResponseEntity<>("Workout fetched successfully", HttpStatus.FOUND);
+        } catch (Exception e) {
+            log.info("Error while fetching workout {}", e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/by-date-and-user")
+    public ResponseEntity<List<Workout>> getWorkoutsByDateAndUserId(@RequestParam("date") String date, @RequestParam("userId") Long userId) {
+        LocalDate workoutDate = LocalDate.parse(date);
+        List<Workout> workouts = workoutService.getWorkoutsByDateAndUserId(workoutDate, userId);
+        if (workouts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(workouts, HttpStatus.OK);
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createWorkout(@RequestBody Workout workout) {
@@ -35,17 +55,6 @@ public class WorkoutController {
 
 
     }
-    @GetMapping("/user/{userId}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<?> getWorkoutByUserId(@PathVariable("userId") Long userId) {
-        try {
-            workoutService.getWorkoutByUserID(userId);
-            return new ResponseEntity<>("Workout fetched successfully", HttpStatus.FOUND);
-        } catch (Exception e) {
-            log.info("Error while fetching workout {}", e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     @DeleteMapping("/user/{userId}")
     public ResponseEntity<?> deleteWorkoutByUserId(@PathVariable("userId") Long userId) {
         try {
@@ -55,15 +64,6 @@ public class WorkoutController {
             log.info("Error while deleting workout {}", e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-    @GetMapping("/by-date-and-user")
-    public ResponseEntity<List<Workout>> getWorkoutsByDateAndUserId(@RequestParam("date") String date, @RequestParam("userId") Long userId) {
-        LocalDate workoutDate = LocalDate.parse(date);
-        List<Workout> workouts = workoutService.getWorkoutsByDateAndUserId(workoutDate, userId);
-        if (workouts.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(workouts, HttpStatus.OK);
     }
 
 
