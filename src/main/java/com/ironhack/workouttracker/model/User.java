@@ -35,6 +35,7 @@ public class User {
     @JsonIgnore
     private List<Workout> workouts;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     private List<Exercise> exercises;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<PersonalBest> personalBests;

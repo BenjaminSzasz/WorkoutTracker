@@ -26,6 +26,7 @@ public class PersonalBestService {
     private final ExerciseRepository exerciseRepository;
     private final WorkoutRepository workoutRepository;
     private final UserRepository userRepository;
+    //TODO : make this work
 
     public Exercise createExercise(Long userId, Exercise exercise) {
         Workout workout = workoutRepository.findById(exercise.getWorkout().getId()).orElse(null);

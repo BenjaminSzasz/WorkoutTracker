@@ -1,5 +1,6 @@
 package com.ironhack.workouttracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,11 +31,19 @@ public class Exercise {
     @OneToMany(mappedBy = "exercise",cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<PersonalBest> personalBests;
 
-    public Exercise(String name, int sets, int repetitions, float weight) {
+  /*  public Exercise(String name, int sets, int repetitions, float weight) {
         this.name = name;
         this.sets = sets;
         this.repetitions = repetitions;
         this.weight = weight;
-    }
+    }*/
 
+    public Exercise(String name, int sets, int repetitions, float weight, Workout workout, User user) {
+        this.name = name;
+        this.sets = sets;
+        this.repetitions = repetitions;
+        this.weight = weight;
+        this.workout = workout;
+        this.user = user;
+    }
 }

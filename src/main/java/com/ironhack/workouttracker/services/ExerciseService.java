@@ -26,9 +26,33 @@ public class ExerciseService {
     private final PersonalBestRepository personalBestRepository;
     private final PersonalBestService personalBestService;
 
+    /**
+     * Save a new exercise to the database.
+     *
+     * @param exercise The exercise object to be saved.
+     */
     public void createExercise(Exercise exercise) {
         exerciseRepository.save(exercise);
     }
+
+    /**
+     * Retrieve a list of exercises for a specific workout date.
+     *
+     * @param workoutDate The date of the workout to filter exercises by.
+     * @return A list of exercises associated with the specified workout date.
+     */
+
+    public List<Exercise> getExerciseByWorkoutDate(LocalDate workoutDate) {
+        return exerciseRepository.findByWorkout_WorkoutDate(workoutDate);
+    }
+
+
+    /**
+     * Add an exercise to a workout identified by the provided workout ID.
+     *
+     * @param workoutId The ID of the workout to add the exercise to.
+     * @param exercise The exercise to be added to the workout.
+     */
 
     public void addExerciseToWorkout(Long workoutId, Exercise exercise) {
         Optional<Workout> workoutOptional = workoutRepository.findById(workoutId);
@@ -42,6 +66,13 @@ public class ExerciseService {
 
         updatePersonalBest(workout.getUser().getId(), exercise);
     }
+
+    /**
+     * Update the personal best records based on a new exercise added.
+     *
+     * @param userId The ID of the user to update personal best records for.
+     * @param newExercise The new exercise added to potentially update personal best.
+     */
 
     private void updatePersonalBest(Long userId, Exercise newExercise) {
         Optional<PersonalBest> personalBestOptional = personalBestRepository.findByUserIdAndExerciseName(userId, newExercise.getName());
@@ -67,6 +98,15 @@ public class ExerciseService {
             }
         }
     }
+
+    /**
+     * Update an existing exercise for a specific user.
+     *
+     * @param userId The ID of the user performing the update.
+     * @param id The ID of the exercise to update.
+     * @param updatedExercise The updated exercise object.
+     * @return The updated exercise if successful, null otherwise.
+     */
 
     public Exercise updateExercise(Long userId, Long id, Exercise updatedExercise) {
         if (exerciseRepository.existsById(id)) {

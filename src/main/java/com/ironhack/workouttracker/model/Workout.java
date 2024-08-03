@@ -1,6 +1,7 @@
 package com.ironhack.workouttracker.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ironhack.workouttracker.enums.WorkoutType;
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class Workout {
     private LocalDate workoutDate;
     private float duration;
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Exercise> exercises;
 
     public Workout(User user, WorkoutType workoutType, LocalDate workoutDate, float duration, List<Exercise> exercises) {

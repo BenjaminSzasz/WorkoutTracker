@@ -13,6 +13,14 @@ import java.util.List;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
+    /**
+     * Retrieve a list of exercises based on the specified workout date.
+     *
+     * @param workoutDate The date of the workout to filter exercises by.
+     * @return A list of exercises associated with the given workout date.
+     */
+    List<Exercise> findByWorkout_WorkoutDate(LocalDate workoutDate);
+
  //   @Query("SELECT e FROM Exercise e INNER JOIN e.workout w WHERE w.workoutDate = :date")
     //   List<Exercise> findExercisesByWorkoutDate(@Param("date") LocalDate date);
 
