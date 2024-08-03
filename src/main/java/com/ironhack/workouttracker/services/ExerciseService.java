@@ -8,10 +8,7 @@ import com.ironhack.workouttracker.repositories.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,9 +27,11 @@ public class ExerciseService {
      * Save a new exercise to the database.
      *
      * @param exercise The exercise object to be saved.
+     * @return
      */
-    public void createExercise(Exercise exercise) {
+    public Exercise createExercise(Exercise exercise) {
         exerciseRepository.save(exercise);
+        return exercise;
     }
 
     /**
